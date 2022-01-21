@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bosssoft.dataxweb.mapper.JobJdbcDatasourceMapper">
+  <resultMap id="BaseResultMap" type="com.bosssoft.dataxweb.entity.JobJdbcDatasource">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="datasource_name" jdbcType="VARCHAR" property="datasourceName" />
+    <result column="datasource" jdbcType="VARCHAR" property="datasource" />
+    <result column="datasource_group" jdbcType="VARCHAR" property="datasourceGroup" />
+    <result column="database_name" jdbcType="VARCHAR" property="databaseName" />
+    <result column="jdbc_username" jdbcType="VARCHAR" property="jdbcUsername" />
+    <result column="jdbc_password" jdbcType="VARCHAR" property="jdbcPassword" />
+    <result column="jdbc_url" jdbcType="VARCHAR" property="jdbcUrl" />
+    <result column="jdbc_driver_class" jdbcType="VARCHAR" property="jdbcDriverClass" />
+    <result column="zk_adress" jdbcType="VARCHAR" property="zkAdress" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, datasource_name, datasource, datasource_group, database_name, jdbc_username, 
+    jdbc_password, jdbc_url, jdbc_driver_class, zk_adress, `status`, create_by, create_date, 
+    update_by, update_date, comments
+  </sql>
+  <select id="selectByExample" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job_jdbc_datasource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from job_jdbc_datasource
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from job_jdbc_datasource
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasourceExample">
+    delete from job_jdbc_datasource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasource">
+    insert into job_jdbc_datasource (id, datasource_name, datasource, 
+      datasource_group, database_name, jdbc_username, 
+      jdbc_password, jdbc_url, jdbc_driver_class, 
+      zk_adress, `status`, create_by, 
+      create_date, update_by, update_date, 
+      comments)
+    values (#{id,jdbcType=BIGINT}, #{datasourceName,jdbcType=VARCHAR}, #{datasource,jdbcType=VARCHAR}, 
+      #{datasourceGroup,jdbcType=VARCHAR}, #{databaseName,jdbcType=VARCHAR}, #{jdbcUsername,jdbcType=VARCHAR}, 
+      #{jdbcPassword,jdbcType=VARCHAR}, #{jdbcUrl,jdbcType=VARCHAR}, #{jdbcDriverClass,jdbcType=VARCHAR}, 
+      #{zkAdress,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasource">
+    insert into job_jdbc_datasource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="datasourceName != null">
+        datasource_name,
+      </if>
+      <if test="datasource != null">
+        datasource,
+      </if>
+      <if test="datasourceGroup != null">
+        datasource_group,
+      </if>
+      <if test="databaseName != null">
+        database_name,
+      </if>
+      <if test="jdbcUsername != null">
+        jdbc_username,
+      </if>
+      <if test="jdbcPassword != null">
+        jdbc_password,
+      </if>
+      <if test="jdbcUrl != null">
+        jdbc_url,
+      </if>
+      <if test="jdbcDriverClass != null">
+        jdbc_driver_class,
+      </if>
+      <if test="zkAdress != null">
+        zk_adress,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="datasourceName != null">
+        #{datasourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null">
+        #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="datasourceGroup != null">
+        #{datasourceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseName != null">
+        #{databaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcUsername != null">
+        #{jdbcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcPassword != null">
+        #{jdbcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcUrl != null">
+        #{jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcDriverClass != null">
+        #{jdbcDriverClass,jdbcType=VARCHAR},
+      </if>
+      <if test="zkAdress != null">
+        #{zkAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasourceExample" resultType="java.lang.Long">
+    select count(*) from job_jdbc_datasource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job_jdbc_datasource
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.datasourceName != null">
+        datasource_name = #{record.datasourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datasource != null">
+        datasource = #{record.datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datasourceGroup != null">
+        datasource_group = #{record.datasourceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databaseName != null">
+        database_name = #{record.databaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdbcUsername != null">
+        jdbc_username = #{record.jdbcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdbcPassword != null">
+        jdbc_password = #{record.jdbcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdbcUrl != null">
+        jdbc_url = #{record.jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdbcDriverClass != null">
+        jdbc_driver_class = #{record.jdbcDriverClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zkAdress != null">
+        zk_adress = #{record.zkAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.comments != null">
+        comments = #{record.comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job_jdbc_datasource
+    set id = #{record.id,jdbcType=BIGINT},
+      datasource_name = #{record.datasourceName,jdbcType=VARCHAR},
+      datasource = #{record.datasource,jdbcType=VARCHAR},
+      datasource_group = #{record.datasourceGroup,jdbcType=VARCHAR},
+      database_name = #{record.databaseName,jdbcType=VARCHAR},
+      jdbc_username = #{record.jdbcUsername,jdbcType=VARCHAR},
+      jdbc_password = #{record.jdbcPassword,jdbcType=VARCHAR},
+      jdbc_url = #{record.jdbcUrl,jdbcType=VARCHAR},
+      jdbc_driver_class = #{record.jdbcDriverClass,jdbcType=VARCHAR},
+      zk_adress = #{record.zkAdress,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=BIT},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      comments = #{record.comments,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasource">
+    update job_jdbc_datasource
+    <set>
+      <if test="datasourceName != null">
+        datasource_name = #{datasourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null">
+        datasource = #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="datasourceGroup != null">
+        datasource_group = #{datasourceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseName != null">
+        database_name = #{databaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcUsername != null">
+        jdbc_username = #{jdbcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcPassword != null">
+        jdbc_password = #{jdbcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcUrl != null">
+        jdbc_url = #{jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jdbcDriverClass != null">
+        jdbc_driver_class = #{jdbcDriverClass,jdbcType=VARCHAR},
+      </if>
+      <if test="zkAdress != null">
+        zk_adress = #{zkAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bosssoft.dataxweb.entity.JobJdbcDatasource">
+    update job_jdbc_datasource
+    set datasource_name = #{datasourceName,jdbcType=VARCHAR},
+      datasource = #{datasource,jdbcType=VARCHAR},
+      datasource_group = #{datasourceGroup,jdbcType=VARCHAR},
+      database_name = #{databaseName,jdbcType=VARCHAR},
+      jdbc_username = #{jdbcUsername,jdbcType=VARCHAR},
+      jdbc_password = #{jdbcPassword,jdbcType=VARCHAR},
+      jdbc_url = #{jdbcUrl,jdbcType=VARCHAR},
+      jdbc_driver_class = #{jdbcDriverClass,jdbcType=VARCHAR},
+      zk_adress = #{zkAdress,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      comments = #{comments,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
